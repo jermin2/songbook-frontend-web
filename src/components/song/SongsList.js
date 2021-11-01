@@ -56,14 +56,14 @@ export const SongsList = (data) => {
     },[])
 
     // If we change mode to BOOK_EDIT_SELECT or SONG_LIST
-    useEffect( () => {
+    useEffect( async () => {
         // If we are in BOOK_EDIT_SELECT MODE and no songs
         if(mode===BOOK_EDIT_SELECT || mode===SONG_LIST){
             if(!songs || songs.length===0){
                 
                 songsService.getSongs().then( result => {
                     setSongs(result);
-                });
+                }).catch(e => console.log(e));
             }  
         }
 
