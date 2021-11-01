@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var API_URL = 'http://jermin2.pythonanywhere.com/';
+var API_URL = 'https://jermin2.pythonanywhere.com/';
 
 axios.defaults.xsrfHeaderName = 'x-csrftoken'
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -11,7 +11,7 @@ axios.defaults.withCredentials = true
 // a processing hit. This can also be tremendously bad with unoptimized queries.
 let defaultTimeout = 30000
 if (process.env.PROD) {
-    API_URL = 'http://jermin2.pythonanywhere.com/'
+    API_URL = 'https://jermin2.pythonanywhere.com/'
   defaultTimeout = 10000
 }
 axios.defaults.baseURL = API_URL
