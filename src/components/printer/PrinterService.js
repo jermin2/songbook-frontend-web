@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://jermin2.pythonanywhere.com/';
+const API_URL = 'https://jermin2.pythonanywhere.com';
 
 export default class PrinterService {
 
