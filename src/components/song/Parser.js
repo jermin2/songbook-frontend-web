@@ -45,6 +45,7 @@ export default class Parser {
                 </div>
             )
         }
+        // if its just a blank, add two new lines
         if(song_block.length===0){
             return ( <div>
                 <div className="line" key={`g-${itr}`}>&nbsp;</div>
@@ -52,12 +53,13 @@ export default class Parser {
                 </div>
             );
         }
+        //If its a song index
         if(song_block.startsWith('$')){
             //find the index
             const match_results = song_block.match(/\$(\d)+/);
             // console.log(match_results); 
 
-            if(match_results===null) {
+            if(match_results===null) { //If its not a number
                 console.log(match_results, song_block, "match results");
                 // console.log(match_results[0].length, match_results[1].length, "match results");
                 return;
@@ -66,7 +68,8 @@ export default class Parser {
             const song_num = match_results[1]// the [1] is to get the capture group
             //slice to get the rest of the song
             const len = match_results[0].length
-            const new_song_block = song_block.slice(len)
+            const new_song_block = song_block.slice(len+1) //+1 to get the new line character after $1
+            console.log("new song lbock", new_song_block)
 
             return ( <>
                 <div className="book-song" key={itr}>
@@ -117,6 +120,7 @@ export default class Parser {
         // Sanitize the inputs
         const song_text_sanitised = this.sanitize(song_text)
         var blocks = song_text_sanitised.split("\n\n");
+        console.log("blocks", blocks);
         
         return( <>
             {blocks.map( (block, itr) => this.parseBlock(block, itr) ) }
@@ -127,6 +131,7 @@ export default class Parser {
     parseBlock = (block, itr) => {
 
         var lines = block.split("\n");
+        // console.log("lines", lines);
 
         // c for chorus
         if (block.startsWith("c\n") ) {
@@ -154,7 +159,6 @@ export default class Parser {
             <div key={`b-${itr}`}>
             <div className="verse" key={`v-${itr}`}>
             {lines.map( (line, itr) => this.parseLineType(line, itr) ) }
-            
             </div>
             <div className="line" key={`g-${itr}`}>&nbsp;</div>
             </div>

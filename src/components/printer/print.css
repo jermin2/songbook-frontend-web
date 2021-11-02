@@ -20,9 +20,10 @@
 }
 
 .song-number {
-    font-size:large;
+    font-size:x-large;
     font-weight:bold;
     padding-top:5mm;
+    padding-bottom:10mm;
 }
 
 .chord {

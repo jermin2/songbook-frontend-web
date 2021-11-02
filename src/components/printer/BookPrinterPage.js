@@ -2,7 +2,7 @@ import React,  {useEffect, useState} from 'react'
 
 import PrinterService from './PrinterService'
 
-import { PageRenderer } from '../song/PageRenderer'
+import { PageRenderer } from './PageRenderer'
 
 import './print.css';
 

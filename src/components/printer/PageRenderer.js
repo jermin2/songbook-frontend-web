@@ -1,7 +1,7 @@
 
 import { renderToStaticMarkup } from "react-dom/server"
 import React, {useEffect, useState} from 'react'
-import Parser from './Parser'
+import Parser from '../song/Parser'
 
 const parser = new Parser();
 const MAX_COLUMNS = 2;
@@ -54,11 +54,10 @@ export const PageRenderer = (data) => {
 
                 // Break on song blocks. Keep song blocks together
                 if(MODE==="SONG_MODE"){
-                    const song_blocks = lyric_block.split('$');
-                    render(song_blocks, createSongBlock);
+                    // const song_blocks = lyric_block.split('$');
+                    // render(song_blocks, createSongBlock);
                 } else { // verse mode
                     const verse_block = lyric_block.split('\n\n');
-
                     [curAreaId, curPageId ] = render(verse_block, createSongBlock, curAreaId, curPageId );
                 }
 

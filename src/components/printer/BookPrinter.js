@@ -1,5 +1,5 @@
 import React,  { useEffect, useState} from 'react'
-import { PageRenderer } from '../song/PageRenderer'
+import { PageRenderer } from './PageRenderer'
 
 import PrinterService from './PrinterService'
 
