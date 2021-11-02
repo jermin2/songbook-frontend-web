@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://jermin2.pythonanywhere.com';
+const API_URL = process.env.REACT_APP_API_URL;
 
 export default class AuthService {
 
