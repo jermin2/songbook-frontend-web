@@ -63,7 +63,6 @@ class BookDisplay extends Component {
 
     // Callback function used by songlist to indicate a selection of a song
     setId(id){
-        console.log("book display",id);
         this.setState({
             selectedSong: id
         })

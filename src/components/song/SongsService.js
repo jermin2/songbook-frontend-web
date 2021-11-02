@@ -26,6 +26,7 @@ export default class SongsService {
     async checkUpdate(){
         const remoteStats = await songWorker.getUpdate();
         const length = await songsTable.length().then( length => length);
+        if(!remoteStats || !length) return;
         if(length !== remoteStats.songs){
             console.log("update!", length, remoteStats.songs);
             songWorker.fetchSongs().then( songs => {
@@ -39,9 +40,6 @@ export default class SongsService {
     }
 
     async getSongs() {
-        
-
-        console.log("Get songs called");
         // Check database version, if its different then update
         //write to localforage songsWorker.getSongs();
 
@@ -54,8 +52,6 @@ export default class SongsService {
 
         // if not, then download from remote database
         if(!length || length ===0 ){
-
-            console.log("FETCH from online", length);
             
             songWorker.fetchSongs().then( songs => {
                 //Get the list of songs from the database
@@ -65,6 +61,8 @@ export default class SongsService {
                 }
 
                 return this.getSongsFromLocal();
+            }).catch( e => {
+                throw e;
             })
 
         } else {

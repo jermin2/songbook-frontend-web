@@ -56,22 +56,25 @@ export const SongsList = (data) => {
     },[])
 
     // If we change mode to BOOK_EDIT_SELECT or SONG_LIST
-    useEffect( async () => {
-        // If we are in BOOK_EDIT_SELECT MODE and no songs
-        if(mode===BOOK_EDIT_SELECT || mode===SONG_LIST){
-            if(!songs || songs.length===0){
-                
-                songsService.getSongs().then( result => {
-                    setSongs(result);
-                }).catch(e => console.log(e));
-            }  
-        }
+    useEffect(  () => {
+        async function loadSongs() {
+            // If we are in BOOK_EDIT_SELECT MODE and no songs
+            if(mode===BOOK_EDIT_SELECT || mode===SONG_LIST){
+                if(!songs || songs.length===0){
+                    
+                    songsService.getSongs().then( result => {
+                        setSongs(result);
+                    }).catch(e => console.log(e));
+                }  
+            }
 
-        if( mode===SONG_LIST){
-            setOrderBy('abc');
-        } else {
-            setOrderBy('num');
+            if( mode===SONG_LIST){
+                setOrderBy('abc');
+            } else {
+                setOrderBy('num');
+            }
         }
+        loadSongs();
 
     // eslint-disable-next-line
     },[mode])
@@ -219,15 +222,13 @@ export const SongsList = (data) => {
          
     };
 
-    if (!songs || songs.length===0){
-        return <>NO SONGS</>
-    }
+
     if(mode === 'BOOK_EDIT') {
         return(
         <div className="song-list">
             <input className="search" onChange={handleChange()} autoFocus placeholder="Type to search"/>
             <div className="title-list" data-mode={mode} onScroll={innerScroll}>
-                <Bucket songs={filtered} updateList={data.updateList} />
+                {filtered && <Bucket songs={filtered} updateList={data.updateList} /> }
             </div>
         </div>
         )
@@ -238,10 +239,11 @@ export const SongsList = (data) => {
         
         <div className="song-list-parent" data-mode={mode} onScroll={mode === BOOK_LIST ? null : mainScroll }> 
             <div className="song-list">
+            {filtered.length===0 && <h2 className="song-item">Error connecting to database</h2>}
                 <input className="search" onChange={handleChange} autoFocus placeholder="Type to search"/>
                 {mode===BOOK_LIST && <div className="sort-controls song-item"><div className="song-index" onClick={sortNum}>123↓</div><div className="song-title" onClick={sortAlpha}>abc↓</div></div> }
                 <div className= {mode==='BOOK_LIST' ? "title-list book-list" : "title-list"} onScroll={innerScroll}>
-                    {filtered.map( s =>
+                    {filtered && filtered.map( s =>
                         <div className="song-item" data-selected={s.selected} data-key={s.song_id} key={s.id ? s.id : s.song_id} onClick={() => handleClick(s.song_id)}>
                        
                        { s.index && <div className="song-index">#{s.index}</div>} 

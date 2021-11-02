@@ -11,7 +11,6 @@ axios.defaults.withCredentials = true
 // a processing hit. This can also be tremendously bad with unoptimized queries.
 let defaultTimeout = 30000
 if (process.env.PROD) {
-    API_URL = 'https://jermin2.pythonanywhere.com'
   defaultTimeout = 10000
 }
 axios.defaults.baseURL = API_URL
@@ -23,15 +22,14 @@ export default class SongWorker {
     fetchSongs() {
         const url = `${API_URL}/api/song/`;
         return axios.get(url).then(response => {
-            console.log("Fetched ", response.data.length)
-            return response.data }).catch(e => console.log(e));
+            return response.data }).catch(e => {throw e});
     }
 
     fetchSong(id) {
         const url = `${API_URL}/api/song/${id}`;
         return axios.get(url).then(response => {
             console.log("Fetched ", response.data)
-            return response.data }).catch(e => console.log(e));
+            return response.data }).catch(e => {throw e});
     }
 
 
@@ -44,8 +42,6 @@ export default class SongWorker {
             return response.data
             }
              ).catch(e => {
-                console.log(e);
-                alert("An error occured");
                 throw e;
             })
     }
@@ -58,8 +54,7 @@ export default class SongWorker {
             return response.data;
         }
          ).catch(e => {
-            console.log(e);
-            alert("An error occured");
+            throw e
         })
     }
 
@@ -71,8 +66,7 @@ export default class SongWorker {
             return response.data
         }
          ).catch(e => {
-            console.log(e);
-            alert("An error occured");
+            throw e
         });
     }
 
@@ -82,8 +76,7 @@ export default class SongWorker {
             return response.data
         }
          ).catch(e => {
-            console.log(e);
-            alert("An error occured");
+            throw e
         });    
     }
 

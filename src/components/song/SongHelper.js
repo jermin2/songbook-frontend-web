@@ -15,7 +15,6 @@ export default class SongHelper {
     books = []
 
     async getSortedSongList() {
-        console.log("Get Sorted Song List", this.songs_sorted);
         if(this.songs_sorted.length===0){
             const songlist = await songsService.getSongs().then( result => {
                 result = result.sort( (s1,s2) => {
@@ -44,8 +43,6 @@ export default class SongHelper {
 
         // Check to see if the songs have been loaded yet, if not
         if(this.songs_sorted.length===0 ){
-        console.log("songs not ready yet", this.songs_sorted.length);
-        
             let sorted_list = [];
             // load them
             const list = await this.getSortedSongList().then( result => {

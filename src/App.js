@@ -43,6 +43,8 @@ class App extends Component {
     authService.relogin().then( res => {
       if(res) this.setState({userLoggedIn:true})
     })
+
+    document.title = "Song Book"
   }
 
   toggleShowNewBook() {

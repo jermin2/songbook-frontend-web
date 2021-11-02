@@ -37,14 +37,13 @@ export default class BookService {
                 books.forEach( b => {
                     booksTable.setItem(b.book_id.toString(), b);
                 })
-            })
+            }).catch(e => console.log("Error updating", e))
         }
 
     }
 
 
     async getBooks() {
-        console.log("get books called");
         //Check if we have it in memory
         if (this.books && this.books.length > 0) {
             return this.books;
@@ -53,7 +52,7 @@ export default class BookService {
         const length = await booksTable.length();
 
         if(length === 0){
-            console.log("Fetch books - this shouldn't need to be called")
+
             bookWorker.fetchBooks().then( books => {
                 
                 for (const book of books) {
@@ -70,7 +69,6 @@ export default class BookService {
     getBook(id){
 
         return booksTable.getItem(id.toString()).then( result => {
-            console.log("result book", result);
             if(result) return result;
             //If no result...
 
