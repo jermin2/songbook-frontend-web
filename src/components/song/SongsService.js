@@ -53,14 +53,15 @@ export default class SongsService {
         // if not, then download from remote database
         if(!length || length ===0 ){
             
-            songWorker.fetchSongs().then( songs => {
+            return songWorker.fetchSongs().then( songs => {
                 //Get the list of songs from the database
                 //Update the local copy
                 for (const song of songs){
                     songsTable.setItem(song.song_id.toString(), song);
                 }
-
-                return this.getSongsFromLocal();
+                
+                return songs.filter( s => s.lang === lang);
+                //return await this.getSongsFromLocal();
             }).catch( e => {
                 throw e;
             })
