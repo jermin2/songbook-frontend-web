@@ -30,7 +30,7 @@ export default class BookService {
         const length = await booksTable.length().then( length => length);
         if(length !== remoteStats.books){
             console.log("updating books...!", length, remoteStats.books);
-            bookWorker.fetchSongs().then( books => {
+            bookWorker.fetchBooks().then( books => {
                 //Get the list of songs from the database
                 //Update the local copy
                 this.books = books;

@@ -11,8 +11,8 @@ export default class AuthService {
                 "password":password
             }).then(response => {
                 sessionStorage.setItem("token", response.data.access);
-                console.log("Logged in successfully")
-            }).catch(e => console.log(e));
+                console.log("Logged in successfully", response)
+            }).catch(e => {throw e});
     }
 
     logout(){

@@ -113,7 +113,7 @@ function CreatePrint( {show, toggle, props})  {
         printerService.create(print).then( response => {
             console.log(response)
             props.history.push(`/printer/${response.id}`)
-        })
+        }).catch(e => console.log(e))
     }
 
 

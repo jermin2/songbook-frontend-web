@@ -39,12 +39,16 @@ class App extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.toggleShowNewBook = this.toggleShowNewBook.bind(this);
   
+
+
+    document.title = "Song Book"
+  }
+
+  componentDidMount() {
     //Attempt login
     authService.relogin().then( res => {
       if(res) this.setState({userLoggedIn:true})
     })
-
-    document.title = "Song Book"
   }
 
   toggleShowNewBook() {
@@ -60,14 +64,18 @@ class App extends Component {
   }
 
   handleLogin(username, password){
-    if( authService.login(username, password) ){
-      alert("User Logged In");
+    authService.login(username, password).then( r => {
       this.setState({
         showLogin: false,
         userLoggedIn: true
       })
+      this.setState({
 
-    }
+      })
+    }).catch(e => {
+      alert("Error logging in")
+      console.log("Error logging in")
+    })
 
   }
   handleLogout(){

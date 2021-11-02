@@ -48,11 +48,11 @@ export const BookPrinter = (data) => {
         }
         if(id){
             console.log(page);
-            printerService.save(page, id)
+            printerService.save(page, id).catch(e => console.log(e))
         }else {
             printerService.create(page).then( response => {
                 setId(response.id);
-            });
+            }).catch(e => console.log(e));
         }
         
     }

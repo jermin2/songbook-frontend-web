@@ -14,7 +14,7 @@ export default class PrinterService {
             return response.data;}
          ).catch(e => {
             console.log(e, page);
-            alert("An error occured");
+            throw e;
         })
     }
 
@@ -25,7 +25,7 @@ export default class PrinterService {
             return response.data
         }).catch( e=> {
             console.log(e);
-            alert("error happened");
+            throw e
         })
     }
 
@@ -35,18 +35,17 @@ export default class PrinterService {
         const token = sessionStorage.getItem("token");
         const headers = { headers: {"Authorization": `Bearer ${token}`}, }
         return axios.post(url,page, headers).then(response => {
-            console.log(response.data);
-            alert("Success");}
-         ).catch(e => {
+            alert("Saved!");
+            return response.data
+        }).catch(e => {
             console.log(e, page);
-            alert("An error occured");
+            throw e
         })
     }
 
     get(id){
         const url = `${API_URL}/api/printer/${id}/`;
         return axios.get(url).then(response => {
-            alert("success");
             return response.data
         })
     }
@@ -54,9 +53,7 @@ export default class PrinterService {
     getAll(){
         const url = `${API_URL}/api/printer/`;
         return axios.get(url).then(response => {
-            console.log(response.data);
-            // alert("success");
             return response.data
-        })
+        }).catch( e => {throw e})
     }
 }
