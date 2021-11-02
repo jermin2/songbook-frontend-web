@@ -249,3 +249,23 @@ table {
   text-align:center;
   padding: 20px;
 }
+
+.capo-btn {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 3px;
+  background: white;
+  border-radius: 50%;
+  border: 1px solid grey;
+  color: inherit;
+}
+
+
+.capo-control {
+  width: 50%;
+  margin: auto;
+  text-align: right;
+  padding: 10;
+  color:grey;
+}
+

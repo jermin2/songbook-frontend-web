@@ -239,10 +239,10 @@ export const SongsList = (data) => {
         
         <div className="song-list-parent" data-mode={mode} onScroll={mode === BOOK_LIST ? null : mainScroll }> 
             <div className="song-list">
-            {filtered.length===0 && <h2 className="song-item">Error connecting to database</h2>}
                 <input className="search" onChange={handleChange} autoFocus placeholder="Type to search"/>
                 {mode===BOOK_LIST && <div className="sort-controls song-item"><div className="song-index" onClick={sortNum}>123↓</div><div className="song-title" onClick={sortAlpha}>abc↓</div></div> }
                 <div className= {mode==='BOOK_LIST' ? "title-list book-list" : "title-list"} onScroll={innerScroll}>
+                    {filtered.length===0 && <h2 className="song-item">Connecting to database....</h2>}  
                     {filtered && filtered.map( s =>
                         <div className="song-item" data-selected={s.selected} data-key={s.song_id} key={s.id ? s.id : s.song_id} onClick={() => handleClick(s.song_id)}>
                        

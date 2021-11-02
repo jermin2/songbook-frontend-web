@@ -16,7 +16,8 @@ class SongDisplay extends Component {
                 id: -1,
                 title: "",
                 text: ""
-            }
+            },
+            capo: 0
         }
 
         // const uniqueId = 0;
@@ -89,6 +90,7 @@ class SongDisplay extends Component {
                 // return this.getSong(params.id);
             }
         }
+
     }
 
     parseSong = () =>{
@@ -103,6 +105,38 @@ class SongDisplay extends Component {
 
         return parser.parseSong(song_text);
     }
+
+    changeCapo = (amount) => {
+        // Capo chords
+
+        const regex = /[A-G]#?/ig;
+        const chordElements = document.getElementsByClassName("chord")
+        const scale = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G','G#']
+        const capo = amount;
+        
+        for (const chordEle of chordElements){ 
+            chordEle.innerHTML = chordEle.innerHTML.replaceAll(regex, function( match) {
+                // find match inside scale
+                var ind = scale.indexOf(match);
+                
+                // console.log ( (ind) % scale.length )
+                if(ind === -1) return match;
+
+                //Make sure it will not be less than 0
+                while(ind+capo < 0) {
+                    ind = ind + scale.length
+                }
+
+                return scale[(ind+capo)%scale.length]
+
+            })
+        }
+        this.setState({
+            capo: this.state.capo+amount
+        })
+    }
+
+
 
     render() {
         if(this.props.widescreen){
@@ -126,6 +160,11 @@ class SongDisplay extends Component {
             // console.log('return b')
             return(
                 <div className="song-display-parent">
+                    <div className="capo-control">
+                    Capo: <button className="capo-btn" onClick={() => this.changeCapo(-1)}>-</button>
+                    {this.state.capo}
+                    <button className="capo-btn" onClick={() => this.changeCapo(1)}>+</button>
+                    </div>
                     {this.props.userLoggedIn && 
                     <div className="links-parent">
                         <Link className="control-link" to={`/song/${this.state.song.song_id}/edit`}>Edit</Link>

@@ -120,7 +120,6 @@ export default class Parser {
         // Sanitize the inputs
         const song_text_sanitised = this.sanitize(song_text)
         var blocks = song_text_sanitised.split("\n\n");
-        console.log("blocks", blocks);
         
         return( <>
             {blocks.map( (block, itr) => this.parseBlock(block, itr) ) }

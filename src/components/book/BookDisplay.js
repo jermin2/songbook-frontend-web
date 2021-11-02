@@ -78,6 +78,7 @@ class BookDisplay extends Component {
 
     render() {
         return (
+           
             <div className="book-display-parent widescreen-parent">
                 <div className="book-display widescreen">
                     <h2 className="book-name">{this.state.book.name}</h2>
