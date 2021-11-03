@@ -136,7 +136,20 @@ class SongDisplay extends Component {
         })
     }
 
+    toggleChords() {
+        const c = document.getElementById('hideChords').checked
 
+        var chords = document.getElementsByClassName('chord')
+        for (var i=0; i<chords.length; i++){
+            chords[i].style.display= c ? "none" : "block"
+        }
+
+        var chordWords = document.getElementsByClassName('chord-word')
+        for (var k=0; k<chordWords.length; k++){
+            chordWords[k].style.paddingTop= c? '0px' : "17px"
+        }
+          
+    }
 
     render() {
         if(this.props.widescreen){
@@ -161,6 +174,7 @@ class SongDisplay extends Component {
             return(
                 <div className="song-display-parent">
                     <div className="capo-control">
+                        Hide <input style={{marginRight:'10px'}} type="checkbox" id="hideChords" onChange={()=>this.toggleChords()}/>
                     Capo: <button className="capo-btn" onClick={() => this.changeCapo(-1)}>-</button>
                     {this.state.capo}
                     <button className="capo-btn" onClick={() => this.changeCapo(1)}>+</button>
